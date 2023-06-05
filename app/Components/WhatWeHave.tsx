@@ -1,6 +1,23 @@
 import React from 'react'
+import{use} from "react"
+import { createClient } from "next-sanity";
+import useSWR from 'swr'
 
-const WhatWeHave = () => {
+const client = createClient({
+    projectId: "8xktior4",
+    dataset: "production",
+    apiVersion: "2023-06-05",
+    useCdn: false
+  });
+
+  async function getProducts() {
+	return await client.fetch(`*[_type == "male"]`)
+}
+
+const WhatWeHave =  () => {
+   var clothes = use(getProducts())
+
+
   return (
     <div className='font-sora py-8 my-3 w-[90%] m-auto'>
     <div className='text-center text-lg font-[700] text-[#0062f5]'>
