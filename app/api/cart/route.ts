@@ -42,6 +42,5 @@ export   async function POST(
 
     return NextResponse.json(insertedUsers);
   
-
-  return NextResponse.json({  });
 }
+

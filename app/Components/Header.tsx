@@ -3,6 +3,7 @@ import React from 'react'
 import Image from 'next/image'
 import {AiOutlineSearch} from 'react-icons/ai'
 import {FaShoppingCart} from 'react-icons/fa'
+import ShoppingCart from './ShoppingCart';
 const Header = () => {
     const src = `https://full-stack-ecommerce-clothing-web.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FLogo.3267fed8.png&w=256&q=75`;
 
@@ -38,12 +39,7 @@ All Products
 </div>
 </div>
 <div>
-<div className='relative inline-block border-solid  bg-slate-300	 w-12 h-max p-3  pt-4 -mt-2 rounded-full' >
-<FaShoppingCart/>
-<span className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-0.5 px-1.5 text-xs">
-          {2}
-        </span>
-</div>
+<ShoppingCart/>
 </div>
 
     </div>

@@ -1,4 +1,5 @@
 import Header from './Components/Header'
+import { CounterContextProvider } from './context/cartItems.context';
 import './globals.css'
 import './styles/font.css';
 
@@ -19,12 +20,14 @@ export default function RootLayout({
   return (
     
     <html lang="en">
-     
+    
       <body className={inter.className}>
+      <CounterContextProvider>
       <Header/>
         {children}
-        
+        </CounterContextProvider>
         </body>
+       
     </html>
   )
 }
