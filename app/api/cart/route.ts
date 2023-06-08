@@ -9,7 +9,10 @@ const Drizzledb = drizzle(db)
 const Items = pgTable('cart', {
   id: serial('id').primaryKey(),
   quantity: integer('quantity'),
-  product: text('product')
+  product: text('product'),
+  imagelink : text('imagelink'),
+  productId : text('productid'),
+  price : text('price'),
 });
 type Task = InferModel<typeof Items>;
 type NewTask = InferModel<typeof Items, 'insert'>;
@@ -32,9 +35,13 @@ export   async function POST(
 ) {
 
   const req = await request.json();
+  console.log(req)
     const newTask: NewTask = {
     product:req.product,
-    quantity:req.quantity       
+    quantity:req.quantity,
+    imagelink:req.image,
+    price:req.price,
+    productId:req.pId       
       };
 
     console.log(db);

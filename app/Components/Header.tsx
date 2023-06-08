@@ -4,6 +4,7 @@ import Image from 'next/image'
 import {AiOutlineSearch} from 'react-icons/ai'
 import {FaShoppingCart} from 'react-icons/fa'
 import ShoppingCart from './ShoppingCart';
+import Link from 'next/link';
 const Header = () => {
     const src = `https://full-stack-ecommerce-clothing-web.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FLogo.3267fed8.png&w=256&q=75`;
 
@@ -20,17 +21,18 @@ const Header = () => {
 </div>
 
 <div className='text-base font-sans'>
-Female
+  <Link href={"/female"}>Female</Link>
+
 </div>
-<div className='text-base'>
-Male
+
+<div className='text-base font-sans'>
+<Link href={"/male"}>Male</Link>
   </div>
-  <div className='text-base'>
+  <div className='text-base font-sans'>
 Kids
 </div>
-<div className='text-base'>
-All Products
-</div>
+<div className='text-base font-sans'>
+<Link href={"/allproducts"}>All PRoducts</Link></div>
 <div>
   <div className='border flex py-1 px-1 rounded' >
 <AiOutlineSearch className='text-xl'/>
@@ -39,7 +41,9 @@ All Products
 </div>
 </div>
 <div>
+  <Link href={"/cart"}>
 <ShoppingCart/>
+</Link>
 </div>
 
     </div>
