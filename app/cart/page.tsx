@@ -30,6 +30,7 @@ const [currentElement, setCurrentElement] = useState<any>()
 const [stripeObject, setstripeObject] = useState<any>()
 const[allOrders, setAllOrders] = useState<any>()
 var stripe:any;
+var allordersData:any;
 console.log(process.env.STRIPE_SECRET_KEY)
 useEffect(()=>{
     const loadstripe=async()=>{
@@ -55,6 +56,7 @@ const getAllCartITems= async()=>{
       console.log(formattedresponse)
      setAllOrders(formattedresponse)
      console.log(allOrders)
+     allordersData= formattedresponse
   }else{
     return 0;
   }
@@ -92,7 +94,7 @@ const [item, setItem] = useState({
         const createCheckOutSession = async () => {
            console.log(allOrders, "all orders")
 
-           var data =JSON.stringify( {item: allOrders})
+           var data =JSON.stringify( {item: allordersData})
            console.log(data)
             const checkoutSession:any = await fetch('/api/stripesession', {
                 method: 'POST',
