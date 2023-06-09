@@ -95,7 +95,7 @@ const [item, setItem] = useState({
         const createCheckOutSession = async () => {
            console.log(allOrders, "all orders")
 console.log(allordersData," before data")
-           var data =JSON.stringify( {item: allordersData})
+           const data =JSON.stringify( {item: allOrders})
            console.log(data, " after data")
            debugger
             const checkoutSession:any = await fetch('/api/stripesession', {
