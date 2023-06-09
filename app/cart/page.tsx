@@ -98,12 +98,12 @@ console.log(allordersData," before data")
            const data =JSON.stringify( {item: allOrders})
            console.log(data, " after data")
            debugger
-            const checkoutSession:any = await fetch('/api/stripesession', {
+            const checkoutSession:any = await fetch('https://dinemarket-rose.vercel.app/api/stripesession', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
                 },
-                body:JSON.stringify( {item: allOrders}) ,
+                body:data ,
               });
               console.log("========================================")
               var data2 = await checkoutSession.json()
