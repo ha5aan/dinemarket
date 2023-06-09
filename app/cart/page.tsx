@@ -90,7 +90,7 @@ const [item, setItem] = useState({
 
 
         const createCheckOutSession = async () => {
-           console.log(item)
+           console.log(allOrders, "all orders")
             const checkoutSession:any = await fetch('/api/stripesession', {
                 method: 'POST',
                 headers: {
