@@ -102,12 +102,12 @@ const [item, setItem] = useState({
                 body:data ,
               });
               console.log("========================================")
-              var data = await checkoutSession.json()
+              var data2 = await checkoutSession.json()
              
           console.log(checkoutSession)
  
             const result = await stripeObject.redirectToCheckout({
-              sessionId: data.id,
+              sessionId: data2.id,
             });
             if (result.error) {
               alert(result.error.message);
