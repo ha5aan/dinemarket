@@ -95,7 +95,8 @@ const [item, setItem] = useState({
            console.log(allOrders, "all orders")
 
            var data =JSON.stringify( {item: allordersData})
-           console.log(data)
+           console.log(data, " after data")
+           debugger
             const checkoutSession:any = await fetch('/api/stripesession', {
                 method: 'POST',
                 headers: {
