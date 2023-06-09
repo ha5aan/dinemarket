@@ -29,7 +29,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
       if (!Array.isArray(req.res)) {
         throw new Error('Invalid request format. Expected an array.');
       }
-      var imagesForMEta=[]
+
       const lineItems = req.res.map((item: any) => ({
         price_data: {
           currency: 'usd',

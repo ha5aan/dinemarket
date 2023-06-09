@@ -42,7 +42,7 @@ const [currentItemCount, setCurrentItemCount] = useState(1)
   },[])
     const getCount = async ()=>{
  
-        const response = await fetch('https://dinemarket-rose.vercel.app/api/getcountofelements')
+        const response = await fetch('/api/getcountofelements')
      
         if(response.ok){
             var formattedresponse  = await response.json();
@@ -56,7 +56,7 @@ const [currentItemCount, setCurrentItemCount] = useState(1)
 
 
 const AddToCart = async (quantity:number, product:string,image:string,price:number,description:string,Id :string)=>{
-    const response = await fetch('https://dinemarket-rose.vercel.app/api/cart', {
+    const response = await fetch('/api/cart', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -48,7 +48,7 @@ useEffect(()=>{
 },[])
 
 const getAllCartITems= async()=>{
-  const response = await fetch('https://dinemarket-rose.vercel.app/api/cart')
+  const response = await fetch('/api/cart')
      
   if(response.ok){
       var formattedresponse  = await response.json();
@@ -77,7 +77,7 @@ const [item, setItem] = useState({
 
     const getCount = async ()=>{
  
-        const response = await fetch('https://dinemarket-rose.vercel.app/api/getcountofelements')
+        const response = await fetch('/api/getcountofelements')
      
         if(response.ok){
             var formattedresponse  = await response.json();
@@ -91,7 +91,7 @@ const [item, setItem] = useState({
 
         const createCheckOutSession = async () => {
            console.log(item)
-            const checkoutSession:any = await fetch('https://dinemarket-rose.vercel.app/api/stripesession', {
+            const checkoutSession:any = await fetch('/api/stripesession', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',

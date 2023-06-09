@@ -6,7 +6,7 @@ import React, { Dispatch, createContext, useEffect, useReducer } from "react";
 
 const getCount = async ()=>{
  
-    const response = await fetch('https://dinemarket-rose.vercel.app//api/getcountofelements')
+    const response = await fetch('/api/getcountofelements')
  
     if(response.ok){
         var formattedresponse  = await response.json();
