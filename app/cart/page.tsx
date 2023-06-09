@@ -12,6 +12,7 @@ import { loadStripe } from "@stripe/stripe-js";
 
 
 async function getProducts(productID:string) {
+ 
   const getItemByIdQuery = `*[_id == $itemId][0]`;
   const result = await client.fetch(getItemByIdQuery, { itemId:productID });
   console.log(result)
@@ -24,6 +25,7 @@ async function getProducts(productID:string) {
     useCdn: false
   });
 const Page = () => {
+  var totalBill:number = 0;
 const [currentElement, setCurrentElement] = useState<any>()
 const [stripeObject, setstripeObject] = useState<any>()
 const[allOrders, setAllOrders] = useState<any>()
@@ -46,7 +48,7 @@ useEffect(()=>{
 },[])
 
 const getAllCartITems= async()=>{
-  const response = await fetch('http://localhost:3000/api/cart')
+  const response = await fetch('https://dinemarket-rose.vercel.app/api/cart')
      
   if(response.ok){
       var formattedresponse  = await response.json();
@@ -75,7 +77,7 @@ const [item, setItem] = useState({
 
     const getCount = async ()=>{
  
-        const response = await fetch('http://localhost:3000/api/getcountofelements')
+        const response = await fetch('https://dinemarket-rose.vercel.app/api/getcountofelements')
      
         if(response.ok){
             var formattedresponse  = await response.json();
@@ -89,7 +91,7 @@ const [item, setItem] = useState({
 
         const createCheckOutSession = async () => {
            console.log(item)
-            const checkoutSession:any = await fetch('http://localhost:3000/api/stripesession', {
+            const checkoutSession:any = await fetch('https://dinemarket-rose.vercel.app/api/stripesession', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
@@ -113,17 +115,18 @@ const [item, setItem] = useState({
 
 console.log(stripeObject,"outer console")
   return (
-    <div className='font-sora py-8 my-3 w-[82%] m-auto'>
+    <div className='font-sora py-8 my-3  lg:w-[82%] m-auto'>
 <p> Shopping Cart</p>
 
 {allOrders &&
 allOrders.res.map((element:any,index:number)=>{
+  totalBill+= Number(element.price);
 return(
-  <div key={index} className='flex h-[200px] my-4'>
-  <div className='w-[15%]'>
-      <img src={element.imagelink}/>
+  <div key={index} className='flex h-fit my-1 lg:my-4 flex-col lg:flex-row lg:w-[70%] m-auto'>
+  <div className=' w-fit m-auto lg:w-[15%]'>
+      <img src={element.imagelink} height={238} width={253}/>
   </div>
-  <div className='w-[51%] flex justify-around'>
+  <div className='lg:w-[51%] flex lg:justify-around flex-col content-center lg:flex-row p-5'>
       <div>   <p>{element.product}
   </p>
   <p>CLothes
@@ -132,7 +135,7 @@ return(
   </div>
  
   </div>
-  <div className='w-[34%]'>
+  <div className=' w-full lg:w-[34%] p-10'>
     <p> Order Summary</p>
     <div  className='flex justify-between'>
   <p>
@@ -157,7 +160,7 @@ return(
         <div className='flex text-base content-center'>
         
             <div>
-Process Checkout
+Process Checkout for total amount : {totalBill}
 </div>
 </div>
 

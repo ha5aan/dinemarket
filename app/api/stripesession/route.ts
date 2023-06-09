@@ -1,7 +1,22 @@
+import { db } from '@vercel/postgres';
+import { pgTable, serial, text, timestamp, varchar, boolean,integer} from 'drizzle-orm/pg-core';
+import { drizzle } from 'drizzle-orm/node-postgres';
+import { InferModel, eq } from 'drizzle-orm';
 import { NextResponse , NextRequest  } from 'next/server';
-
+const Drizzledb = drizzle(db)
 //const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const { default: stripe } = require('stripe');
+const Items = pgTable('cart', {
+  id: serial('id').primaryKey(),
+  quantity: integer('quantity'),
+  product: text('product'),
+  imagelink : text('imagelink'),
+  productId : text('productid'),
+  price : text('price'),
+});
+type Task = InferModel<typeof Items>;
+type NewTask = InferModel<typeof Items, 'insert'>;
+
 const stripeInstance = stripe(process.env.STRIPE_SECRET_KEY);
 export async function POST(request: NextRequest, response: NextResponse) {
     try {
@@ -10,7 +25,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
 
       console.log(req);
       console.log("stripe key ", process.env.STRIPE_SECRET_KEY);
-      const redirectURL = 'http://localhost:3000';
+      const redirectURL = 'https://dinemarket-rose.vercel.app';
       if (!Array.isArray(req.res)) {
         throw new Error('Invalid request format. Expected an array.');
       }
@@ -22,7 +37,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
             name: item.product,
             images: [item.image],
           },
-          unit_amount: Number(item.price),
+          unit_amount: Number(item.price) * 100,
         },
         quantity: Number(item.quantity),
       }));
@@ -43,7 +58,8 @@ console.log(lineItems)
           images: "bogus string",
         },
       });
-  
+      let res= await  Drizzledb.delete(Items);
+      console.log(res)
       return NextResponse.json({ id: session.id });
     } catch (error) {
       console.error('Error processing Stripe request:', error);

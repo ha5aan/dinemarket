@@ -16,8 +16,8 @@ async function getProducts() {
 const AllProducts = () => {
     var clothes = use(getProducts())
   return (
-    <div className='font-sora py-8 my-3 w-[80%] m-auto'>
-    <div className='grid grid-cols-4 gap-12'>
+    <div className='font-sora py-8 my-3 w-fit lg:w-[80%] m-auto'>
+    <div className='grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 gap-12'>
 {clothes.map((element:any,index:number)=>{
   return(<div key={index}>
     <Link href={`specificproduct/${element._id}`}>   

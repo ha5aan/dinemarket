@@ -8,6 +8,7 @@ import { BiCart } from 'react-icons/bi';
 import { CounterContext } from '../../context/cartItems.context';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { get } from 'http';
+import { Toaster, toast } from 'react-hot-toast';
 async function getProducts(productID:string) {
   const getItemByIdQuery = `*[_id == $itemId][0]`;
   const result = await client.fetch(getItemByIdQuery, { itemId:productID });
@@ -41,7 +42,7 @@ const [currentItemCount, setCurrentItemCount] = useState(1)
   },[])
     const getCount = async ()=>{
  
-        const response = await fetch('http://localhost:3000/api/getcountofelements')
+        const response = await fetch('https://dinemarket-rose.vercel.app/api/getcountofelements')
      
         if(response.ok){
             var formattedresponse  = await response.json();
@@ -55,7 +56,7 @@ const [currentItemCount, setCurrentItemCount] = useState(1)
 
 
 const AddToCart = async (quantity:number, product:string,image:string,price:number,description:string,Id :string)=>{
-    const response = await fetch('http://localhost:3000/api/cart', {
+    const response = await fetch('https://dinemarket-rose.vercel.app/api/cart', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -69,28 +70,31 @@ const AddToCart = async (quantity:number, product:string,image:string,price:numb
           pId:Id       
             }),
       });
-
+      toast.success("Item Added to Cart Sucessfully")
       getCount().then((count) => {
         console.log(count, "what is this")
         dispatch({ type:"INCREMENT", payload: count });
       });
+     
 }
 
 
   return (
     <div className='font-sora py-8 my-3 w-[82%] m-auto'>
+        <Toaster />
 {currentElement &&
 
-        <div className='flex gap-4 justify-around'>
+        <div className='flex-col  flex gap-4 justify-around lg:flex-row'>
+          <div className='flex gap-2 '>
             <div className='flex flex-col gap-3'>
             <img src={currentElement.imageLink} alt="" height={100} width={100} />
           
             </div>
-<div className='w-[65%]' >   
+<div className='lg:w-[65%]' >   
 
 <img className="object-cover" src={currentElement.imageLink} width={"100%"} height={"70%"}/>
 </div>
-
+</div>
 <div className='mt-16'>
     <p className='text-2xl font-[400]  tracking-[.05em]  text-[#212121]'>{currentElement.mainHeading}
 </p>
@@ -101,16 +105,16 @@ const AddToCart = async (quantity:number, product:string,image:string,price:numb
 </p>
 <div>
     <ul className='list-none flex justify-between'>
-        <li className='w-[35px] p-1 font-[700] text-center h-[35px] flex justify-center content-center rounded-full text-[#666] text-lg hover:shadow-lg '> XS </li>
-        <li className='w-[35px] p-1 font-[700] text-center h-[35px] flex justify-center content-center rounded-full text-[#666] text-lg hover:shadow-lg '> S </li>
-        <li className='w-[35px] p-1 font-[700] text-center h-[35px] flex justify-center content-center rounded-full text-[#666] text-lg hover:shadow-lg '> M </li>
-        <li className='w-[35px] p-1 font-[700] text-center h-[35px] flex justify-center content-center rounded-full text-[#666] text-lg hover:shadow-lg '> L </li>
-        <li className='w-[35px] p-1 font-[700] text-center h-[35px] flex justify-center content-center rounded-full text-[#666] text-lg hover:shadow-lg '> XL </li>
+        <li className='w-1/5 p-1 font-[700] text-center h-[35px] flex justify-center content-center rounded-full text-[#666] text-lg hover:shadow-lg '> XS </li>
+        <li className='w-1/5 p-1 font-[700] text-center h-[35px] flex justify-center content-center rounded-full text-[#666] text-lg hover:shadow-lg '> S </li>
+        <li className='w-1/5 p-1 font-[700] text-center h-[35px] flex justify-center content-center rounded-full text-[#666] text-lg hover:shadow-lg '> M </li>
+        <li className='w-1/5 p-1 font-[700] text-center h-[35px] flex justify-center content-center rounded-full text-[#666] text-lg hover:shadow-lg '> L </li>
+        <li className='w-1/5 p-1 font-[700] text-center h-[35px] flex justify-center content-center rounded-full text-[#666] text-lg hover:shadow-lg '> XL </li>
     </ul>
 </div>
 
 </div>
-<div className='mt-4'> Quantity <Quantity setCurrentItemCount= {setCurrentElement} currentItemCount={currentItemCount} /> </div> 
+<div className='mt-4'> Quantity <Quantity setCurrentItemCount= {setCurrentItemCount} currentItemCount={currentItemCount} /> </div> 
 <div className='mt-4'>
 <button onClick={()=> AddToCart(2,currentElement.mainHeading,currentElement.imageLink,currentElement.price,currentElement.subHeading,currentElement._id)} className='bg-[#212121] text-white p-2 border-2 border-gray-500'>
         <div className='flex text-base content-center'>

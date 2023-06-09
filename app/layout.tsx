@@ -21,7 +21,7 @@ export default function RootLayout({
     
     <html lang="en">
     
-      <body className={inter.className}>
+      <body className='m-0 p-0'>
       <CounterContextProvider>
       <Header/>
         {children}
