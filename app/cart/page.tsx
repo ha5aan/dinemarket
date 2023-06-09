@@ -56,8 +56,9 @@ const getAllCartITems= async()=>{
       console.log(formattedresponse)
      setAllOrders(formattedresponse)
      console.log(allOrders)
-     allordersData= formattedresponse
-  }else{
+     allordersData= JSON.parse(JSON.stringify(formattedresponse)) 
+    
+    }else{
     return 0;
   }
   }
@@ -93,7 +94,7 @@ const [item, setItem] = useState({
 
         const createCheckOutSession = async () => {
            console.log(allOrders, "all orders")
-
+console.log(allordersData," before data")
            var data =JSON.stringify( {item: allordersData})
            console.log(data, " after data")
            debugger
