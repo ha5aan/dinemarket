@@ -103,7 +103,7 @@ console.log(allordersData," before data")
                 headers: {
                   'Content-Type': 'application/json',
                 },
-                body:data ,
+                body:JSON.stringify( {item: allOrders}) ,
               });
               console.log("========================================")
               var data2 = await checkoutSession.json()
