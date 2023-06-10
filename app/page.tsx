@@ -11,7 +11,10 @@ export default function Home() {
 const searchParams = useSearchParams();
 console.log(searchParams.toString())
 if(searchParams.toString().includes("success")){
-  toast.success("Payment Sucessful for you order! Thank you")
+  toast.success("Payment Sucessful for you order! Thank you",{
+    duration: 4000,
+  position: 'top-center',
+  })
 }else if(searchParams.toString().includes("cancel")){
   toast.error("Unable to Process Request")
 }

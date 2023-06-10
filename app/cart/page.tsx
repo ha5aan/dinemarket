@@ -105,7 +105,7 @@ console.log(allordersData," before data")
               if(checkoutSession.ok){
                 console.log("========================================")
                 var data2 = await checkoutSession.json()
-               
+               localStorage.setItem('cart',JSON.stringify([]))
             console.log(checkoutSession)
    
               const result = await stripeObject.redirectToCheckout({
