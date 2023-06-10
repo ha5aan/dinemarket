@@ -140,7 +140,7 @@ var array=[];
 </div>
 <div className='mt-4'> Quantity <Quantity setCurrentItemCount= {setCurrentItemCount} currentItemCount={currentItemCount} /> </div> 
 <div className='mt-4'>
-<button onClick={()=> AddToCart(2,currentElement.mainHeading,currentElement.imageLink,currentElement.price,currentElement.subHeading,currentElement._id)} className='bg-[#212121] text-white p-2 border-2 border-gray-500'>
+<button onClick={()=> AddToCart(currentItemCount,currentElement.mainHeading,currentElement.imageLink,currentElement.price,currentElement.subHeading,currentElement._id)} className='bg-[#212121] text-white p-2 border-2 border-gray-500'>
         <div className='flex text-base content-center'>
         
             <div>
