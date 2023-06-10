@@ -17,12 +17,13 @@ const Items = pgTable('cart', {
 type Task = InferModel<typeof Items>;
 type NewTask = InferModel<typeof Items, 'insert'>;
 
-const stripeInstance = stripe(process.env.STRIPE_SECRET_KEY);
+const stripeInstance = stripe("sk_test_51KW1U6HEtYcZ4XvWczFKfDHQJsJIWoqg9e9yy7AOf7IaVHCdGo4heUcHv80sc2T3fz3wYM7I6EOH9iE23V1qrhUt004sez0WEk");
 export async function POST(request: NextRequest, response: NextResponse) {
     try {
       const formatted_response = await request.json();
+      console.log(formatted_response)
         const req = formatted_response.item
-
+        
       console.log(req);
       console.log("stripe key ", process.env.STRIPE_SECRET_KEY);
       const redirectURL = 'https://dinemarket-rose.vercel.app';
