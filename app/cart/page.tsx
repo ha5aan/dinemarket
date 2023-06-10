@@ -40,12 +40,9 @@ useEffect(()=>{
     loadstripe().then((x=>{ 
        setstripeObject(x)
         console.log(x, "Stripe loaded")})).catch((x=>console.log(x)))
-
-        getAllCartITems().then(()=>{
-          console.log("data fetching complete")
-        }).catch(()=>{
-          console.log("Error in fetching data")
-        })
+        var array = JSON.parse(localStorage.getItem("cart") as string)
+        setAllOrders(array)
+       
 },[])
 
 const getAllCartITems= async()=>{
@@ -93,29 +90,34 @@ const [item, setItem] = useState({
 
 
         const createCheckOutSession = async () => {
-           console.log(allOrders, "all orders")
+          
 console.log(allordersData," before data")
            const data =JSON.stringify( {item: allOrders})
            console.log(data, " after data")
            debugger
-            const checkoutSession:any = await fetch('https://dinemarket-rose.vercel.app/api/stripesession', {
+            var checkoutSession = await fetch('/api/stripesession', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
                 },
                 body:data ,
               });
-              console.log("========================================")
-              var data2 = await checkoutSession.json()
-             
-          console.log(checkoutSession)
- 
-            const result = await stripeObject.redirectToCheckout({
-              sessionId: data2.id,
-            });
-            if (result.error) {
-              alert(result.error.message);
-            }
+              if(checkoutSession.ok){
+                console.log("========================================")
+                var data2 = await checkoutSession.json()
+               
+            console.log(checkoutSession)
+   
+              const result = await stripeObject.redirectToCheckout({
+                sessionId: data2.id,
+              });
+              if (result.error) {
+                alert(result.error.message);
+              }
+              }else{
+                console.log(checkoutSession)
+              }
+          
             
           };
 
@@ -126,12 +128,13 @@ console.log(stripeObject,"outer console")
 <p> Shopping Cart</p>
 
 {allOrders &&
-allOrders.res.map((element:any,index:number)=>{
+allOrders.map((element:any,index:number)=>{
+  console.log(element)
   totalBill+= Number(element.price);
 return(
   <div key={index} className='flex h-fit my-1 lg:my-4 flex-col lg:flex-row lg:w-[70%] m-auto'>
   <div className=' w-fit m-auto lg:w-[15%]'>
-      <img src={element.imagelink} height={238} width={253}/>
+      <img src={element.image} height={238} width={253}/>
   </div>
   <div className='lg:w-[51%] flex lg:justify-around flex-col content-center lg:flex-row p-5'>
       <div>   <p>{element.product}

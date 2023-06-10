@@ -9,6 +9,7 @@ import { CounterContext } from '../../context/cartItems.context';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { get } from 'http';
 import { Toaster, toast } from 'react-hot-toast';
+import { data } from 'autoprefixer';
 async function getProducts(productID:string) {
   const getItemByIdQuery = `*[_id == $itemId][0]`;
   const result = await client.fetch(getItemByIdQuery, { itemId:productID });
@@ -56,25 +57,48 @@ const [currentItemCount, setCurrentItemCount] = useState(1)
 
 
 const AddToCart = async (quantity:number, product:string,image:string,price:number,description:string,Id :string)=>{
-    const response = await fetch('/api/cart', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          product:product,
-          quantity:quantity,
-          image:image,
-          price:price,
-          desc: description,
-          pId:Id       
-            }),
-      });
+    
+  
+  var object={
+    product:product,
+    quantity:quantity,
+    image:image,
+    price:price,
+    desc: description,
+    pId:Id       
+      }
+  
+  // const response = await fetch('/api/cart', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         product:product,
+  //         quantity:quantity,
+  //         image:image,
+  //         price:price,
+  //         desc: description,
+  //         pId:Id       
+  //           }),
+  //     });
+var array=[];
+      var get = localStorage.getItem("cart");
+      array.push(object)
+      if(get==null || get==undefined){
+        localStorage.setItem("cart", JSON.stringify(array))
+        dispatch({ type:"INCREMENT", payload:array.length  });
+      }else{
+         array = JSON.parse(localStorage.getItem("cart") as string)
+        array.push(object)
+        dispatch({ type:"INCREMENT", payload:array.length  });
+        localStorage.setItem("cart", JSON.stringify(array))
+
+      }
       toast.success("Item Added to Cart Sucessfully")
-      getCount().then((count) => {
-        console.log(count, "what is this")
-        dispatch({ type:"INCREMENT", payload: count });
-      });
+    
+      
+     
      
 }
 

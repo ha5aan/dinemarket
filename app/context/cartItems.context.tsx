@@ -61,10 +61,10 @@ type StateType = {
   
 
     useEffect(() => {
-      getCount().then((count) => {
-        console.log(count, "what is this")
-        dispatch({ type:"INCREMENT", payload: count });
-      });
+     var array = JSON.parse(localStorage.getItem("cart") as string)
+             dispatch({ type:"INCREMENT", payload:array.length  });
+       
+      
     }, []);
 
 

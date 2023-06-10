@@ -26,11 +26,11 @@ export async function POST(request: NextRequest, response: NextResponse) {
       console.log(req);
       console.log("stripe key ", process.env.STRIPE_SECRET_KEY);
       const redirectURL = 'https://dinemarket-rose.vercel.app';
-      if (!Array.isArray(req.res)) {
+      if (!Array.isArray(req)) {
         throw new Error('Invalid request format. Expected an array.');
       }
 
-      const lineItems = req.res.map((item: any) => ({
+      const lineItems = req.map((item: any) => ({
         price_data: {
           currency: 'usd',
           product_data: {
