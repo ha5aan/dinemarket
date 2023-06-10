@@ -62,7 +62,13 @@ type StateType = {
 
     useEffect(() => {
      var array = JSON.parse(localStorage.getItem("cart") as string)
-             dispatch({ type:"INCREMENT", payload:array.length  });
+     if(array==null || array==undefined){
+      dispatch({ type:"INCREMENT", payload:0 });
+     }else{
+      dispatch({ type:"INCREMENT", payload:array.length });
+
+     }
+             
        
       
     }, []);
