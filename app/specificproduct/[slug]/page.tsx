@@ -9,7 +9,6 @@ import { CounterContext } from '../../context/cartItems.context';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { get } from 'http';
 import { Toaster, toast } from 'react-hot-toast';
-import { data } from 'autoprefixer';
 async function getProducts(productID:string) {
   const getItemByIdQuery = `*[_id == $itemId][0]`;
   const result = await client.fetch(getItemByIdQuery, { itemId:productID });

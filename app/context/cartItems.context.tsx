@@ -38,8 +38,8 @@ type StateType = {
     switch (action.type) {
       case "INCREMENT":
         return { ...state, ItemCount: action.payload};
-      case "SetState":
-        return { ...state, ItemCount: state.ItemCount - 1 };
+      case "DELETE":
+        return { ...state, ItemCount: action.payload };
       case "RESET":
         return { ...state, ItemCount: 0 };
       default:

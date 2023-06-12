@@ -25,8 +25,8 @@ export async function POST(request: NextRequest, response: NextResponse) {
         const req = formatted_response.item
         
       console.log(req);
-      console.log("stripe key ", process.env.STRIPE_SECRET_KEY);
-      const redirectURL = 'https://dinemarket-rose.vercel.app';
+      //console.log("stripe key ", process.env.STRIPE_SECRET_KEY);
+      const redirectURL = 'http://localhost:3000/';
       if (!Array.isArray(req)) {
         throw new Error('Invalid request format. Expected an array.');
       }
@@ -53,7 +53,7 @@ console.log(lineItems)
         payment_method_types: ['card'],
         line_items: lineItems, 
         mode: 'payment',
-        success_url: redirectURL + '?status=success',
+        success_url: redirectURL + 'PaymentSucessfull',
         cancel_url: redirectURL + '?status=cancel',
         metadata: {
           images: "bogus string",

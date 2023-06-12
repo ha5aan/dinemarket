@@ -8,6 +8,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { get } from 'http';
 import { loadStripe } from "@stripe/stripe-js";
 
+import { CounterContext } from './../context/cartItems.context';
 
 
 
@@ -29,6 +30,7 @@ const Page = () => {
 const [currentElement, setCurrentElement] = useState<any>()
 const [stripeObject, setstripeObject] = useState<any>()
 const[allOrders, setAllOrders] = useState<any>()
+const { state,dispatch } = useContext(CounterContext);
 var stripe:any;
 var allordersData:any;
 console.log(process.env.STRIPE_SECRET_KEY)
@@ -120,7 +122,16 @@ console.log(allordersData," before data")
           
             
           };
-
+const DeleteFromCart=(index:number)=>{
+  var array=[];
+  array = JSON.parse(localStorage.getItem("cart") as string)
+  array.splice(index,1);
+  console.log(allOrders)
+  setAllOrders(array)
+  console.log(allOrders,"After increment")
+  dispatch({ type:"INCREMENT", payload:array.length  });
+  localStorage.setItem("cart", JSON.stringify(array))
+}
 
 console.log(stripeObject,"outer console")
   return (
@@ -129,7 +140,7 @@ console.log(stripeObject,"outer console")
 
 {allOrders &&
 allOrders.map((element:any,index:number)=>{
-  console.log(element)
+ 
   totalBill+= Number(element.price);
 return(
   <div key={index} className='flex h-fit my-1 lg:my-4 flex-col lg:flex-row lg:w-[70%] m-auto'>
@@ -139,7 +150,7 @@ return(
   <div className='lg:w-[51%] flex lg:justify-around flex-col content-center lg:flex-row p-5'>
       <div>   <p>{element.product}
   </p>
-  <p>CLothes
+  <p>
   </p>
 
   </div>
@@ -159,6 +170,7 @@ return(
   </p>
   <p> {element.price}</p>
     </div>
+    <p><button onClick={()=>{DeleteFromCart(index)}} className='bg-[#212121] text-white p-1 border-2 border-gray-500'> Delete from cart</button></p>
     </div>
   
   </div>
