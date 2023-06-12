@@ -26,7 +26,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
         
       console.log(req);
       //console.log("stripe key ", process.env.STRIPE_SECRET_KEY);
-      const redirectURL = 'http://localhost:3000/';
+      const redirectURL = 'https://dinemarket-rose.vercel.app/';
       if (!Array.isArray(req)) {
         throw new Error('Invalid request format. Expected an array.');
       }
